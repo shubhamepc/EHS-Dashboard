@@ -1,0 +1,8 @@
+{"level":"info","message":"Server running on port 5000 in development mode","timestamp":"2026-01-19 15:01:21"}
+{"level":"warn","message":"404 - GET /login","timestamp":"2026-01-19 15:06:16"}
+{"level":"warn","message":"404 - GET /favicon.ico","timestamp":"2026-01-19 15:06:16"}
+{"level":"info","message":"Server running on port 5000 in development mode","timestamp":"2026-01-19 15:16:54"}
+{"level":"info","message":"Server running on port 5000 in development mode","timestamp":"2026-01-19 17:33:10"}
+{"level":"info","message":"Server running on port 5000 in development mode","timestamp":"2026-01-19 17:36:36"}
+{"level":"warn","message":"404 - GET /favicon.ico","timestamp":"2026-01-19 17:37:23"}
+{"level":"info","message":"Server running on port 5000 in development mode","timestamp":"2026-01-19 17:41:40"}

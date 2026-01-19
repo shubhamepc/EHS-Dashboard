@@ -1,0 +1,25 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "C:\\Users\\User\\OneDrive - Shubham EPC Private Limited\\Desktop\\Code\\EHS Dashboard\\backend\\logs\\.b62992fec0d9907a4b639e2854813694c6de3596-audit.json",
+    "files": [
+        {
+            "date": 1768571062975,
+            "name": "C:\\Users\\User\\OneDrive - Shubham EPC Private Limited\\Desktop\\Code\\EHS Dashboard\\backend\\logs\\combined-2026-01-16.log",
+            "hash": "2e6f36f987bca911d4f6900a92717a5ffb39f4bdef6a9b23704f82b8ec1955f8"
+        },
+        {
+            "date": 1768625526404,
+            "name": "C:\\Users\\User\\OneDrive - Shubham EPC Private Limited\\Desktop\\Code\\EHS Dashboard\\backend\\logs\\combined-2026-01-17.log",
+            "hash": "1539a7e7d244664211e805b95c37bc2fbc97c98fb70136222abf5738a45f2e53"
+        },
+        {
+            "date": 1768815080717,
+            "name": "C:\\Users\\User\\OneDrive - Shubham EPC Private Limited\\Desktop\\Code\\EHS Dashboard\\backend\\logs\\combined-2026-01-19.log",
+            "hash": "5c2636a4a711de635ab8070c0a940d67ea7e64edf633a0c6194acc3cb88eab3d"
+        }
+    ],
+    "hashType": "sha256"
+}
