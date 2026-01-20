@@ -4,14 +4,16 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import api from '@/lib/api';
 import Cookies from 'js-cookie';
-import { User, Lock, Eye, EyeOff, ShieldCheck, ArrowRight } from 'lucide-react';
+import { User, Lock, Eye, EyeOff, ShieldCheck, ArrowRight, X, Mail, Phone } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function LoginPage() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const [error, setError] = useState('');
+    const [showSupport, setShowSupport] = useState(false);
     const [loading, setLoading] = useState(false);
     const router = useRouter();
 
@@ -42,20 +44,27 @@ export default function LoginPage() {
 
     return (
         <div className="flex flex-col min-h-screen font-sans text-slate-900 bg-[#fafafa]">
+
             {/* Header */}
-            <header className="flex items-center justify-between px-6 py-4 bg-white border-b border-gray-100">
+            <header
+                className="flex items-center justify-between px-6 py-4 bg-white"
+                style={{ boxShadow: 'rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px' }}
+            >
                 <div className="flex items-center gap-3">
-                    <div className="text-[#0059b2] h-6 w-6">
-                        <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-                            <path clipRule="evenodd" d="M39.475 21.6262C40.358 21.4363 40.6863 21.5589 40.7581 21.5934C40.7876 21.655 40.8547 21.857 40.8082 22.3336C40.7408 23.0255 40.4502 24.0046 39.8572 25.2301C38.6799 27.6631 36.5085 30.6631 33.5858 33.5858C30.6631 36.5085 27.6632 38.6799 25.2301 39.8572C24.0046 40.4502 23.0255 40.7407 22.3336 40.8082C21.8571 40.8547 21.6551 40.7875 21.5934 40.7581C21.5589 40.6863 21.4363 40.358 21.6262 39.475C21.8562 38.4054 22.4689 36.9657 23.5038 35.2817C24.7575 33.2417 26.5497 30.9744 28.7621 28.762C30.9744 26.5497 33.2417 24.7574 35.2817 23.5037C36.9657 22.4689 38.4054 21.8562 39.475 21.6262ZM4.41189 29.2403L18.7597 43.5881C19.8813 44.7097 21.4027 44.9179 22.7217 44.7893C24.0585 44.659 25.5148 44.1631 26.9723 43.4579C29.9052 42.0387 33.2618 39.5667 36.4142 36.4142C39.5667 33.2618 42.0387 29.9052 43.4579 26.9723C44.1631 25.5148 44.659 24.0585 44.7893 22.7217C44.9179 21.4027 44.7097 19.8813 43.5881 18.7597L29.2403 4.41187C27.8527 3.02428 25.8765 3.02573 24.2861 3.36776C22.6081 3.72863 20.7334 4.58419 18.8396 5.74801C16.4978 7.18716 13.9881 9.18353 11.5858 11.5858C9.18354 13.988 7.18717 16.4978 5.74802 18.8396C4.58421 20.7334 3.72865 22.6081 3.36778 24.2861C3.02574 25.8765 3.02429 27.8527 4.41189 29.2403Z" fill="currentColor" fillRule="evenodd"></path>
-                        </svg>
+                    <div className="relative h-12 w-48">
+                        <Image
+                            src="/shubham_logo.jpg"
+                            alt="Shubham EPC Logo"
+                            fill
+                            className="object-contain object-left"
+                            priority
+                        />
                     </div>
-                    <h2 className="text-lg font-bold leading-tight tracking-tight text-slate-900">Shubham EPC</h2>
                 </div>
                 <div className="flex items-center gap-4">
-                    <button className="text-sm font-medium text-slate-500 hover:text-[#0059b2] transition-colors">Support</button>
+                    <button onClick={() => setShowSupport(true)} className="text-sm font-medium text-slate-500 hover:text-[#0059b2] transition-colors">Support</button>
                     <div className="h-4 w-[1px] bg-gray-200"></div>
-                    <span className="text-xs font-semibold text-[#0059b2] uppercase tracking-widest opacity-70">Enterprise v4.2</span>
+                    <span className="text-xs font-semibold text-[#0059b2] uppercase tracking-widest opacity-70">SHUBH EHS v2.1</span>
                 </div>
             </header>
 
@@ -72,27 +81,44 @@ export default function LoginPage() {
                         </p>
                     </div>
 
-                    <div className="bg-white border border-gray-100 rounded-xl shadow-[0_4px_6px_-1px_rgb(0_0_0/0.1),0_2px_4px_-2px_rgb(0_0_0/0.1)] overflow-hidden">
-                        <div className="h-1.5 w-full bg-[#0059b2]"></div>
+                    <div
+                        className="bg-white rounded-[5px] overflow-hidden"
+                        style={{ boxShadow: 'rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px' }}
+                    >
+                        <div className="flex h-1.5 w-full">
+                            <div className="flex-1 h-full bg-[#005e81]"></div>
+                            <div className="flex-1 h-full bg-[#12b9b3]"></div>
+                            <div className="flex-1 h-full bg-[#a0c460]"></div>
+                            <div className="flex-1 h-full bg-[#f57e20]"></div>
+                            <div className="flex-1 h-full bg-[#006993]"></div>
+                            <div className="flex-1 h-full bg-[#c71d4b]"></div>
+                        </div>
                         <div className="p-8">
                             {error && (
-                                <div className="mb-6 bg-red-50 text-red-600 p-3 rounded-lg text-sm border border-red-100 flex items-center gap-2">
-                                    <ShieldCheck className="h-4 w-4" /> {/* Alert icon alternative */}
-                                    {error}
+                                <div className="mb-6 bg-red-50 text-red-600 p-3 rounded-[5px] text-sm border border-red-100 flex items-center gap-2">
+                                    <ShieldCheck className="h-4 w-4 shrink-0" />
+                                    <div>
+                                        {error}
+                                        {error.includes('User not found') && (
+                                            <span className="ml-1 font-bold underline cursor-pointer hover:text-red-800" onClick={() => setShowSupport(true)}>
+                                                Contact Support
+                                            </span>
+                                        )}
+                                    </div>
                                 </div>
                             )}
 
                             <form onSubmit={handleLogin} className="flex flex-col gap-5">
                                 {/* Username */}
                                 <div className="flex flex-col gap-2">
-                                    <label className="text-slate-900 text-sm font-semibold">Username or Employee ID</label>
+                                    <label className="text-slate-900 text-sm font-semibold">Employee ID</label>
                                     <div className="relative flex items-center">
                                         <div className="absolute left-3 text-slate-400">
                                             <User size={20} />
                                         </div>
                                         <input
-                                            className="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-200 bg-white text-slate-900 focus:border-[#0059b2] focus:ring-2 focus:ring-[#0059b2]/10 transition-all text-sm font-normal placeholder:text-slate-400"
-                                            placeholder="e.g. manager1"
+                                            className="w-full pl-10 pr-4 py-3 rounded-[5px] border border-gray-200 bg-white text-slate-900 focus:border-[#0059b2] focus:ring-2 focus:ring-[#0059b2]/10 transition-all text-sm font-normal placeholder:text-slate-400"
+                                            placeholder="e.g. SH1510"
                                             type="text"
                                             value={username}
                                             onChange={(e) => setUsername(e.target.value)}
@@ -112,7 +138,7 @@ export default function LoginPage() {
                                             <Lock size={20} />
                                         </div>
                                         <input
-                                            className="w-full pl-10 pr-12 py-3 rounded-lg border border-gray-200 bg-white text-slate-900 focus:border-[#0059b2] focus:ring-2 focus:ring-[#0059b2]/10 transition-all text-sm font-normal placeholder:text-slate-400"
+                                            className="w-full pl-10 pr-12 py-3 rounded-[5px] border border-gray-200 bg-white text-slate-900 focus:border-[#0059b2] focus:ring-2 focus:ring-[#0059b2]/10 transition-all text-sm font-normal placeholder:text-slate-400"
                                             placeholder="••••••••"
                                             type={showPassword ? "text" : "password"}
                                             value={password}
@@ -143,7 +169,7 @@ export default function LoginPage() {
                                 <button
                                     type="submit"
                                     disabled={loading}
-                                    className="w-full bg-[#0059b2] hover:bg-[#0059b2]/90 text-white font-bold py-3.5 rounded-lg transition-all flex items-center justify-center gap-2 group disabled:opacity-70 disabled:cursor-not-allowed"
+                                    className="w-full bg-[#0059b2] hover:bg-[#4da83c] text-white font-bold py-3.5 rounded-[5px] transition-all flex items-center justify-center gap-2 group disabled:opacity-70 disabled:cursor-not-allowed"
                                 >
                                     <span>{loading ? 'Signing In...' : 'Sign In to Dashboard'}</span>
                                     {!loading && <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />}
@@ -160,24 +186,62 @@ export default function LoginPage() {
                         </div>
                     </div>
 
-                    {/* Contextual Branding Image */}
-                    <div className="rounded-xl h-24 overflow-hidden relative shadow-sm">
-                        <div className="absolute inset-0 bg-[#0059b2]/10 mix-blend-multiply"></div>
-                        <div className="absolute inset-0 bg-gradient-to-r from-[#0059b2]/40 to-transparent"></div>
-                        <div
-                            className="w-full h-full bg-center bg-cover"
-                            style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuBoEZkMwgwXwOBbmFNVY1rff3bnhKujHUfgUz-gYFAq7q4YdVBl_3FjXTvqp59HlN47D5k0b4h9HWGJF-Ozle2hf_b_crbGxMyZcgI9dQtvwjcg483MToRDRFmVZvsyPRS07Ru-M7oKSmctMNsTM_aXJAZsEYEt8SWpNeBm6VoMl_lb__iJir7678Two1nG2CARSfv3DJuD_GnONp0k3BmkhyRJR01bkW73AIXWhnV_EYNqPYtLGSuw3SckDQ00fcSDvCyxFN7VCAc')" }}
-                        ></div>
-                        <div className="absolute inset-0 flex items-center px-6">
-                            <p className="text-white text-xs font-bold uppercase tracking-widest drop-shadow-md">Safety First. Quality Always.</p>
-                        </div>
-                    </div>
 
-                    <footer className="text-center text-[11px] text-slate-400 uppercase tracking-[0.2em]">
-                        © 2024 Shubham EPC Private Limited. Authorized Access Only.
-                    </footer>
+
+
                 </div>
             </main>
+            {/* Support Popup Modal */}
+            {showSupport && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-sm animate-in fade-in duration-200" onClick={() => setShowSupport(false)}>
+                    <div
+                        className="bg-white rounded-[5px] w-full max-w-sm overflow-hidden animate-in zoom-in-95 duration-200"
+                        style={{ boxShadow: 'rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px' }}
+                        onClick={e => e.stopPropagation()}
+                    >
+                        <div className="flex items-center justify-between p-4 border-b border-gray-100">
+                            <h3 className="font-bold text-slate-800">IT Support</h3>
+                            <button onClick={() => setShowSupport(false)} className="text-slate-400 hover:text-slate-600 transition-colors p-1 rounded-full hover:bg-slate-100">
+                                <X size={20} />
+                            </button>
+                        </div>
+                        <div className="p-6 space-y-6">
+                            <div className="flex items-start gap-4">
+                                <div className="bg-blue-50 p-2.5 rounded-[5px] text-[#0059b2]">
+                                    <User size={20} />
+                                </div>
+                                <div>
+                                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-0.5">Contact Person</p>
+                                    <p className="text-sm font-bold text-slate-800">Vishal Desai</p>
+                                </div>
+                            </div>
+
+                            <div className="flex items-start gap-4">
+                                <div className="bg-blue-50 p-2.5 rounded-[5px] text-[#0059b2]">
+                                    <Mail size={20} />
+                                </div>
+                                <div>
+                                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-0.5">Email Address</p>
+                                    <a href="mailto:it-support@shubham.biz" className="text-sm font-bold text-[#0059b2] hover:underline">it-support@shubham.biz</a>
+                                </div>
+                            </div>
+
+                            <div className="flex items-start gap-4">
+                                <div className="bg-blue-50 p-2.5 rounded-[5px] text-[#0059b2]">
+                                    <Phone size={20} />
+                                </div>
+                                <div>
+                                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-0.5">Phone Number</p>
+                                    <a href="tel:8080153393" className="text-sm font-bold text-slate-800 hover:text-[#0059b2] transition-colors">8080153393</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="p-4 bg-gray-50 border-t border-gray-100 text-center">
+                            <p className="text-[10px] text-slate-400 font-medium">Available Mon-Sat, 9:00 AM - 6:00 PM</p>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

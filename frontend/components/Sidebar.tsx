@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 
 export default function Sidebar() {
     const pathname = usePathname();
@@ -17,7 +18,7 @@ export default function Sidebar() {
     const isActive = (path: string) => pathname === path || pathname?.startsWith(path + '/');
 
     const navLinkClass = (path: string) =>
-        `flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors ${isActive(path)
+        `flex items-center gap-3 px-3 py-2.5 rounded-[5px] transition-colors ${isActive(path)
             ? 'bg-[#0059b2]/10 text-[#0059b2] border-r-[3px] border-[#0059b2]'
             : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-zinc-800'
         }`;
@@ -30,14 +31,20 @@ export default function Sidebar() {
     };
 
     return (
-        <aside className="w-64 bg-white dark:bg-zinc-900 border-r border-slate-200 dark:border-zinc-800 flex flex-col fixed h-full z-50">
-            <div className="p-6 flex items-center gap-3">
-                <div className="bg-[#0059b2] rounded-lg p-1.5 flex items-center justify-center text-white">
-                    <span className="material-symbols-outlined">construction</span>
-                </div>
-                <div>
-                    <h1 className="text-sm font-bold leading-tight tracking-tight uppercase">Shubham EPC</h1>
-                    <p className="text-[10px] text-slate-500 font-medium">Enterprise EHS</p>
+        <aside
+            className="w-64 bg-white dark:bg-zinc-900 flex flex-col fixed h-full z-50"
+            style={{ boxShadow: 'rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px' }}
+        >
+            <div className="p-6 flex items-center justify-center">
+                <div className="relative h-12 w-48">
+                    <Image
+                        src="/shubham_logo.jpg"
+                        alt="Shubham EPC Logo"
+                        fill
+                        className="object-contain"
+                        priority
+                        sizes="192px"
+                    />
                 </div>
             </div>
 
@@ -101,7 +108,7 @@ export default function Sidebar() {
                 </Link>
                 <button
                     onClick={handleLogout}
-                    className="flex w-full items-center gap-3 px-3 py-2.5 rounded-lg text-red-600 hover:bg-red-50 transition-colors"
+                    className="flex w-full items-center gap-3 px-3 py-2.5 rounded-[5px] text-red-600 hover:bg-red-50 transition-colors"
                 >
                     <span className="material-symbols-outlined text-[20px]">logout</span>
                     <span className="text-sm font-medium">Logout</span>
