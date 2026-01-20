@@ -130,8 +130,8 @@ exports.getSafetyScores = async (req, res) => {
             projects: scores
         });
     } catch (error) {
-        console.error('getSafetyScores Error:', error);
-        res.status(500).json({ message: 'Failed to calculate safety scores', error: error.message });
+        console.error(error);
+        res.status(500).json({ message: 'Failed to calculate safety scores' });
     }
 };
 

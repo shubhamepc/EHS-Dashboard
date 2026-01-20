@@ -27,20 +27,13 @@ exports.createProject = async (req, res) => {
 
 exports.getAllProjects = async (req, res) => {
     try {
-        let query = `
+        // Join with users to get manager name. 
+        // Fixed: Use LEFT JOIN correctly and select full_name if available or username
+        const result = await db.query(`
             SELECT p.*, u.full_name as site_manager_name 
             FROM projects p 
             LEFT JOIN users u ON p.site_manager_id = u.id
-        `;
-        const params = [];
-
-        // If user is a manager, only show their assigned projects
-        if (req.role === 'manager') {
-            query += ' WHERE p.site_manager_id = $1';
-            params.push(req.userId);
-        }
-
-        const result = await db.query(query, params);
+        `);
         res.status(200).json(result.rows);
     } catch (error) {
         res.status(500).json({ message: error.message });

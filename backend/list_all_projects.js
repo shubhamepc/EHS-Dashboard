@@ -4,16 +4,12 @@ const path = require('path');
 const dbPath = path.resolve(__dirname, 'ehs.sqlite');
 const db = new sqlite3.Database(dbPath);
 
-console.log("Checking project assignments...");
-db.all(`
-    SELECT p.id, p.name, p.site_manager_id, u.username as manager_username 
-    FROM projects p
-    LEFT JOIN users u ON p.site_manager_id = u.id
-`, (err, rows) => {
+db.all("SELECT id, name FROM projects ORDER BY name", (err, rows) => {
     if (err) {
         console.error(err);
     } else {
-        console.table(rows);
+        console.log("Current Projects:");
+        rows.forEach(r => console.log(`${r.id}: ${r.name}`));
     }
     db.close();
 });

@@ -62,9 +62,12 @@ export default function LoginPage() {
                     </div>
                 </div>
                 <div className="flex items-center gap-4">
-                    <button onClick={() => setShowSupport(true)} className="text-sm font-medium text-slate-500 hover:text-[#0059b2] transition-colors">Support</button>
-                    <div className="h-4 w-[1px] bg-gray-200"></div>
-                    <span className="text-xs font-semibold text-[#0059b2] uppercase tracking-widest opacity-70">SHUBH EHS v2.1</span>
+                    <button
+                        onClick={() => setShowSupport(true)}
+                        className="px-4 py-2 bg-gradient-to-r from-blue-50 to-blue-100 text-[#0059b2] text-sm font-bold rounded shadow-sm hover:from-blue-100 hover:to-blue-200 transition-all border border-blue-200"
+                    >
+                        Support
+                    </button>
                 </div>
             </header>
 
@@ -100,9 +103,13 @@ export default function LoginPage() {
                                     <div>
                                         {error}
                                         {error.includes('User not found') && (
-                                            <span className="ml-1 font-bold underline cursor-pointer hover:text-red-800" onClick={() => setShowSupport(true)}>
+                                            <button
+                                                type="button"
+                                                className="ml-2 px-2 py-0.5 bg-red-100 text-red-700 text-xs font-bold rounded hover:bg-red-200 transition-colors"
+                                                onClick={() => setShowSupport(true)}
+                                            >
                                                 Contact Support
-                                            </span>
+                                            </button>
                                         )}
                                     </div>
                                 </div>
@@ -181,7 +188,7 @@ export default function LoginPage() {
                         <div className="bg-gray-50 px-8 py-4 border-t border-gray-100 flex items-center gap-3">
                             <ShieldCheck className="text-[#0059b2] h-[18px] w-[18px]" />
                             <p className="text-[11px] text-slate-500 uppercase tracking-wider font-semibold">
-                                Secure Multi-Factor Authentication Enabled
+                                Secure System Access
                             </p>
                         </div>
                     </div>
@@ -191,6 +198,13 @@ export default function LoginPage() {
 
                 </div>
             </main>
+
+            {/* Footer */}
+            <footer className="py-6 text-center space-y-2 bg-white border-t border-slate-100">
+                <p className="text-xs font-semibold text-[#0059b2] uppercase tracking-widest opacity-80">SHUBH EHS v2.1</p>
+                <p className="text-[10px] text-slate-400 font-medium">Copyright © 2026 Shubham EPC Pvt. Ltd.</p>
+            </footer>
+
             {/* Support Popup Modal */}
             {showSupport && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-sm animate-in fade-in duration-200" onClick={() => setShowSupport(false)}>
