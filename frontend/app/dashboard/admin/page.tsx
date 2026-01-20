@@ -52,7 +52,6 @@ export default function AdminDashboard() {
             // Region filter (Mock logic based on location)
             let matchesFilter = true;
             if (filter === 'region_north' && project.location) {
-                // simple mock
                 matchesFilter = project.location.toLowerCase().includes('delhi') || project.location.toLowerCase().includes('noida');
             }
 
@@ -63,17 +62,25 @@ export default function AdminDashboard() {
 
     const projectSummaries = useMemo(() => {
         return filteredProjects.map(project => {
-            // Find all reports for this project
-            const projectReports = reports.filter(r => r.project_id === project.id);
+            // Find reports for this project
+            let projectReports = reports.filter(r => r.project_id === project.id);
+
+            // Apply time filter if needed
+            if (filter === 'current_month') {
+                const now = new Date();
+                projectReports = projectReports.filter(r =>
+                    r.report_month === (now.getMonth() + 1) &&
+                    r.report_year === now.getFullYear()
+                );
+            }
 
             // Calculate stats
             const total_tbt = projectReports.reduce((sum, r) => sum + (r.tbt_sessions || 0), 0);
             const total_incidents = projectReports.reduce((sum, r) => sum + (r.first_aid_cases || 0) + (r.near_miss_cases || 0), 0);
 
-            // Find latest report
+            // Find latest report (overall, or in period)
             let last_report = { month: 0, year: 0 };
             if (projectReports.length > 0) {
-                // Reports are ordered by backend? Or sort here just in case
                 const sorted = [...projectReports].sort((a, b) => {
                     return (b.report_year - a.report_year) || (b.report_month - a.report_month);
                 });
@@ -86,17 +93,21 @@ export default function AdminDashboard() {
                 total_tbt,
                 total_incidents,
                 last_report,
-                status: project.status || 'Active' // Use project status from DB or default
+                status: project.status || 'Active'
             };
         });
-    }, [filteredProjects, reports]);
+    }, [filteredProjects, reports, filter]);
 
     const kpiStats = useMemo(() => {
-        // Calculate global stats based on ALL reports (not just filtered projects, usually KPI is global unless filtered)
-        // Adjust based on filteredProjects if KPIs should reflect search/filter
-        // Let's reflect filtered projects for better interactivity
+        let relevantReports = reports.filter(r => filteredProjects.some(p => p.id === r.project_id));
 
-        const relevantReports = reports.filter(r => filteredProjects.some(p => p.id === r.project_id));
+        if (filter === 'current_month') {
+            const now = new Date();
+            relevantReports = relevantReports.filter(r =>
+                r.report_month === (now.getMonth() + 1) &&
+                r.report_year === now.getFullYear()
+            );
+        }
 
         return {
             total_tbt: relevantReports.reduce((acc, r) => acc + (r.tbt_sessions || 0), 0),
@@ -105,10 +116,18 @@ export default function AdminDashboard() {
             total_near_miss: relevantReports.reduce((acc, r) => acc + (r.near_miss_cases || 0), 0),
             total_ptw_closed: relevantReports.reduce((acc, r) => acc + (r.ptw_closed || 0), 0)
         };
-    }, [filteredProjects, reports]);
+    }, [filteredProjects, reports, filter]);
 
     const chartData = useMemo(() => {
-        const relevantReports = reports.filter(r => filteredProjects.some(p => p.id === r.project_id));
+        let relevantReports = reports.filter(r => filteredProjects.some(p => p.id === r.project_id));
+
+        if (filter === 'current_month') {
+            const now = new Date();
+            relevantReports = relevantReports.filter(r =>
+                r.report_month === (now.getMonth() + 1) &&
+                r.report_year === now.getFullYear()
+            );
+        }
 
         const data = relevantReports.reduce((acc: any[], report) => {
             const date = new Date(report.report_year, report.report_month - 1);
@@ -130,7 +149,7 @@ export default function AdminDashboard() {
         }, []);
 
         return data.sort((a: any, b: any) => a.date - b.date);
-    }, [filteredProjects, reports]);
+    }, [filteredProjects, reports, filter]);
 
     const handleExport = () => {
         const dataToExport = projectSummaries.map(p => ({

@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import api from '@/lib/api';
 import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import jsPDF from 'jspdf';
-import 'jspdf-autotable';
+import autoTable from 'jspdf-autotable';
 
 export default function ManagementAnalyticsPage() {
     const [activeTab, setActiveTab] = useState('yearly');
@@ -67,7 +67,7 @@ export default function ManagementAnalyticsPage() {
                 ['Average Safety Score', Math.round(summary.statistics.avg_safety_score || 0)],
             ];
 
-            (doc as any).autoTable({
+            autoTable(doc, {
                 startY: 50,
                 head: [['Metric', 'Value']],
                 body: stats,
@@ -81,7 +81,7 @@ export default function ManagementAnalyticsPage() {
         doc.text('Top Performing Projects', 14, 20);
 
         if (summary?.top_performers) {
-            (doc as any).autoTable({
+            autoTable(doc, {
                 startY: 25,
                 head: [['Project Name', 'Safety Score']],
                 body: summary.top_performers.map((p: any) => [p.name, Math.round(p.safety_score)]),
@@ -94,7 +94,7 @@ export default function ManagementAnalyticsPage() {
         doc.text('Projects Requiring Attention', 14, (doc as any).lastAutoTable.finalY + 15);
 
         if (summary?.risk_projects && summary.risk_projects.length > 0) {
-            (doc as any).autoTable({
+            autoTable(doc, {
                 startY: (doc as any).lastAutoTable.finalY + 20,
                 head: [['Project Name', 'Total Incidents', 'Safety Score']],
                 body: summary.risk_projects.map((p: any) => [
@@ -111,7 +111,7 @@ export default function ManagementAnalyticsPage() {
         doc.setFontSize(14);
         doc.text('Project Risk Classification', 14, 20);
 
-        (doc as any).autoTable({
+        autoTable(doc, {
             startY: 25,
             head: [['Project', 'Risk Level', 'Avg Incidents/Month', 'Safety Score']],
             body: riskData.map(p => [
@@ -180,8 +180,8 @@ export default function ManagementAnalyticsPage() {
                             key={tab}
                             onClick={() => setActiveTab(tab)}
                             className={`pb-3 px-2 text-sm font-bold capitalize transition-colors ${activeTab === tab
-                                    ? 'text-[#0059b2] border-b-2 border-[#0059b2]'
-                                    : 'text-slate-500 hover:text-slate-700'
+                                ? 'text-[#0059b2] border-b-2 border-[#0059b2]'
+                                : 'text-slate-500 hover:text-slate-700'
                                 }`}
                         >
                             {tab === 'yearly' && 'Yearly Comparison'}
@@ -309,9 +309,9 @@ export default function ManagementAnalyticsPage() {
                                     <td className="px-6 py-4 font-bold text-sm">{project.name}</td>
                                     <td className="px-6 py-4">
                                         <span className={`px-3 py-1 rounded-full text-xs font-bold ${project.risk_color === 'red' ? 'bg-red-100 text-red-700' :
-                                                project.risk_color === 'orange' ? 'bg-orange-100 text-orange-700' :
-                                                    project.risk_color === 'yellow' ? 'bg-yellow-100 text-yellow-700' :
-                                                        'bg-green-100 text-green-700'
+                                            project.risk_color === 'orange' ? 'bg-orange-100 text-orange-700' :
+                                                project.risk_color === 'yellow' ? 'bg-yellow-100 text-yellow-700' :
+                                                    'bg-green-100 text-green-700'
                                             }`}>
                                             {project.risk_level}
                                         </span>

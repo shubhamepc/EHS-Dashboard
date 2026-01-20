@@ -20,7 +20,7 @@ export default function DashboardLayout({
         <div className="flex min-h-screen bg-[#fafafa]">
             <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
-            <div className="flex-1 flex flex-col min-h-screen md:ml-64 transition-all duration-300">
+            <div className="flex-1 flex flex-col min-h-screen md:ml-64">
                 {/* Top Header */}
                 <header
                     className="h-16 bg-white dark:bg-zinc-900 border-b border-slate-200 dark:border-zinc-800 px-4 md:px-8 flex items-center justify-between sticky top-0 z-40"
@@ -64,7 +64,7 @@ export default function DashboardLayout({
                 </main>
 
                 <footer className="p-4 md:p-8 border-t border-slate-200 dark:border-zinc-800 flex flex-col md:flex-row gap-4 justify-between items-center bg-white dark:bg-zinc-900 mt-auto">
-                    <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest text-center md:text-left">© 2024 Shubham EPC Enterprise Solutions</p>
+                    <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest text-center md:text-left">Copyright © 2026 Shubham EPC Pvt. Ltd.</p>
                     <div className="flex gap-4 md:gap-6">
                         <Link href="/dashboard/admin/privacy-policy" className="text-[10px] text-slate-500 font-bold uppercase hover:text-[#0059b2] transition-colors">Privacy Policy</Link>
                         <Link href="/dashboard/admin/ehs-standards" className="text-[10px] text-slate-500 font-bold uppercase hover:text-[#0059b2] transition-colors">EHS Standards</Link>
