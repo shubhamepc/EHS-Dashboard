@@ -1,0 +1,6 @@
+<svg width="200" height="50" viewBox="0 0 200 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="200" height="50" fill="white"/>
+  <text x="10" y="32" font-family="Arial, sans-serif" font-weight="bold" font-size="24" fill="#0059b2">Shubham EPC</text>
+  <rect x="175" y="15" width="20" height="20" rx="4" fill="#4da83c"/>
+  <path d="M185 18L185 32M178 25L192 25" stroke="white" stroke-width="3" stroke-linecap="round"/>
+</svg>
