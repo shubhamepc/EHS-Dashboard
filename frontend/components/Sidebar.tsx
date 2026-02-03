@@ -48,7 +48,7 @@ export default function Sidebar({ isOpen, onClose }: { isOpen: boolean; onClose:
                 <div className="p-6 flex items-center justify-center">
                     <div className="relative h-12 w-48">
                         <Image
-                            src="/shubham_logo.svg"
+                            src="/shubham_logo.jpg"
                             alt="Shubham EPC Logo"
                             fill
                             className="object-contain"
