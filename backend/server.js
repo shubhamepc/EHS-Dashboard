@@ -138,6 +138,10 @@ const server = app.listen(PORT, () => {
     // Start cron job for monthly reminders
     const { startReminderCron } = require('./services/reminderCron');
     startReminderCron();
+
+    // Ensure Database is initialized (Create tables/users if missing)
+    const initDb = require('./utils/initDb');
+    initDb();
 });
 
 // Graceful shutdown
