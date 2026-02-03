@@ -23,6 +23,22 @@ module.exports = {
             kill_timeout: 5000,
             wait_ready: true,
             shutdown_with_message: true
+        },
+        {
+            name: 'ehs-frontend',
+            cwd: '../frontend',
+            script: 'node_modules/next/dist/bin/next',
+            args: 'start',
+            instances: 2,
+            exec_mode: 'cluster',
+            env: {
+                NODE_ENV: 'production',
+                PORT: 3000
+            },
+            error_file: '/var/log/ehs-system/pm2-frontend-error.log',
+            out_file: '/var/log/ehs-system/pm2-frontend-out.log',
+            merge_logs: true,
+            autorestart: true
         }
     ]
 };
